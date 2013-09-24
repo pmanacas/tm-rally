@@ -4,32 +4,39 @@ import webapp2
 import jinja2
 from google.appengine.api import urlfetch
 import json
-import logging
-import pprint
 import datetime
 from collections import defaultdict
+import logging
+import urlparse
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'])
-    
-def convert(input):
-    if isinstance(input, dict):
-        return {convert(key): convert(value) for key, value in input.iteritems()}
-    elif isinstance(input, list):
-        return [convert(element) for element in input]
-    elif isinstance(input, unicode):
-        return input.encode('utf-8')
-    else:
-        return input
-    
-    
-class MainPage(webapp2.RequestHandler):
+
+class LandingPage(webapp2.RequestHandler):
 
     def get(self):
-        logging.info(self.request.query_string)
+     
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.write(template.render())
+    
+    
+    def post(self):
+        url = self.request.get('query')
+        logging.info(url)
+        url = urlparse.urlsplit(url).query
+        logging.info(url)
+        url = '/rally/?' + url
+        self.redirect(url)
+        pass
+        
+        
+class RallyPage(webapp2.RequestHandler):
+
+    def get(self):
+
         qs = self.request.query_string
-        title = self.request.get('trackname') or 'Rally Incognito'
+        title = self.request.get('trackname') or self.request.get('author')+'\'s Rally' or 'Rally Incognito'
         
         tracks_url = "http://tm.mania-exchange.com/tracksearch?api=on&" + qs
         response = urlfetch.fetch(tracks_url)
@@ -56,8 +63,8 @@ class MainPage(webapp2.RequestHandler):
             totals = []
             for usr, recs in records.iteritems():
                 
-                # if len(tracks)==len(recs):
-                if len(recs)> 2:
+                if len(tracks)==len(recs):
+                # if len(recs)> 2:
                     
                     total_ms = sum(recs)
                     total_hr = str(datetime.timedelta(milliseconds = total_ms)).encode('UTF-8')[:-3]
@@ -72,12 +79,15 @@ class MainPage(webapp2.RequestHandler):
             'totals': totals,
         }
 
-        template = JINJA_ENVIRONMENT.get_template('index.html')
+        template = JINJA_ENVIRONMENT.get_template('rally.html')
         self.response.write(template.render(template_values))
     
     
 
 app = webapp2.WSGIApplication(
-    [('/', MainPage)],
+    [
+        ('/', LandingPage),
+        ('/rally/', RallyPage),
+    ],
     debug = os.environ['SERVER_SOFTWARE'].startswith('Dev')
  )

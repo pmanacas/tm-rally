@@ -1,17 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>TM Rally</title>
+    <title>{{title}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
   </head>
   <body>
+  
+  
+    <ul>
+        {% for t in tracks %}
+            <li>{{ t.Name }}</li>
 
-<form action="/" method="post" >
-	<input type="text" id="url" name="query" style="width:500px">
-    
-</form>
+            <ul>
+                {% for r in t.Replays %}
+                    <li>{{ r.Record }} ({{ r.Username }})</li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    </ul>
+    <br><br>
+    <ul>
+        {% for driver, total_ms, total_hr in totals %}
+            <li>{{ driver }} ({{ total_hr }})</li>
+        {% endfor %}
+    </ul>
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
