@@ -17,10 +17,6 @@ handlers:
 - url: /img/(.*\.(gif|png|jpg))
   static_files: static/img/\1
   upload: static/img/(.*\.(gif|png|jpg))
-
-- url: /css
-  mime_type: text/css
-  static_dir: static/css
   
 - url: /favicon\.ico
   mime_type: image/png
