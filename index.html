@@ -1,77 +1,64 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="favicon.ico">
-    <title>TM Rally</title>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
-  <body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="favicon.ico">
+<title>TM Rally</title>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
 
- <div class="container">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a target="_blank" href="http://tm.mania-exchange.com/messaging/compose/9512">Feedback</a></li>
-        </ul>
-        <h3 class="text-muted">TM Rally</h3>
-      </div>
 
-      <div class="jumbotron">
-        <h1>Jumbotron heading</h1>
-        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        <p><a class="btn btn-lg btn-success" href="#">Sign up today</a></p>
-        <form action="/" method="post" >
-	<input type="text" id="url" name="query" style="width:500px">
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+  <div class="container">
+    <h1 style="margin-bottom:48px; margin-top:0">Welcome to TM Rally :-)</h1>
+    <p>On this page you can create multi-track Rally style leaderboards for Trackmania tracks from Mania Exchange.</p>
+    <p>This site will simply add up all the record times for a group of tracks you select and display them in a friendly format.</p>
+    <p>See instructions below.</p>
+    <p>&nbsp;</p>
+    <form action="/" method="post" >
+      <input type="text" id="url" name="query" style="width:700px; padding-left:10px;" placeholder="Paste Mania Exchange track search url">
+      <input type="submit" name="submit" value="Create Rally &raquo;" class="btn btn-primary btn-lg">
+    </form>
+  </div>
+</div>
+<div class="container"> 
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-lg-6">
+      <h2><strong>Step 1:</strong> Track Search</h2>
+      <p>Head over to the Mania Exchange site and <strong><a href="http://tm.mania-exchange.com/tracksearch">do a track search</a></strong> to find the group of tracks you want to include in your Rally.</p>
+      <p>Make sure you sort them in the order you will want them in the Rally readerboard.</p>
+      <p><a target="_blank" class="btn btn-default" href="http://tm.mania-exchange.com/tracksearch?mode=0&vm=0&trackname=Rally%20of%20Molvania&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0">Search example &raquo;</a></p>
+    </div>
+    <div class="col-lg-6">
+      <h2><strong>Step 2:</strong> Copy & Paste!</h2>
+      <p>When you are happy with your track search results simply <strong>copy the url from the browser address bar on Mania Exchange</strong> and paste in the text box above.</p>
+      <p>Ah... and click the <em>"Create Rally"</em> button :P</p>
+      <p><a target="_blank" class="btn btn-default" href="/rally/?mode=0&vm=0&trackname=Rally%20of%20Molvania&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0">Rally example &raquo;</a></p>
+    </div>
     
-</form>
-      </div>
+  </div>
+  <hr>
+  <a href="http://tm.mania-exchange.com/messaging/compose/9512"><strong>Send feedback to pfm</strong></a>
+</div>
+</div>
+<!-- /container --> 
 
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
-
-      <div class="footer">
-        <p>copyleft</p>
-      </div>
-
-    </div> <!-- /container -->
-
-
-
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script>
+<script src="http://code.jquery.com/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
+<script>
         $( document ).ready(function() {
             // Do stuff on page load
 
         });
-    </script>
-    <script type="text/javascript">
+    </script> 
+<script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-3803456-10']);
@@ -84,5 +71,5 @@
   })();
 
 </script>
-  </body>
+</body>
 </html>

@@ -12,8 +12,15 @@
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-  
-  
+
+  <h1>Total Rally times</h1>
+    <ul>
+        {% for driver, total_ms, total_hr in totals %}
+            <li>{{ driver }} ({{ total_hr }})</li>
+        {% endfor %}
+    </ul>
+      
+  <h1>Stage times</h1>
     <ul>
         {% for t in tracks %}
             <li>{{ t.Name }}</li>
@@ -25,12 +32,7 @@
             </ul>
         {% endfor %}
     </ul>
-    <br><br>
-    <ul>
-        {% for driver, total_ms, total_hr in totals %}
-            <li>{{ driver }} ({{ total_hr }})</li>
-        {% endfor %}
-    </ul>
+
 
     <script src="http://code.jquery.com/jquery.js"></script>
     <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
