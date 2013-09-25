@@ -7,12 +7,11 @@
 <meta name="author" content="pfm">
 <title>{{title|e}}</title>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-<div class="jumbotron" style="padding-bottom:20px;">
-  <div class="container"> <a class="" href="/"><img src="/img/tmrally.png" alt="TM Rally"></a><br>
-    <h1 style="margin:20px 0;"><em>{{title|e}}</em></h1>
+<div class="jumbotron" style="padding-top:20px; padding-bottom:20px;">
+  <div class="container"> <a class="" href="/"><img src="/img/tmrally.png" alt="TM Rally" title="Home"></a><br>
+    <h1 style="margin:20px 0;"><em>{{title|e}}</em>&nbsp;<span style="font-size:0.3em;"><a title="This title is derived from the Track Name and Author fields in your track search." id="info" href="#"><span class="glyphicon glyphicon-info-sign" style=" color:#ccc"></span></a></span></h1>
   </div>
 </div>
 <!-- /container -->
@@ -32,13 +31,15 @@
 
       {% for driver, total_ms, total_hr, diff_prev, diff_first in totals %}
       
-	<tr>
+	<tr id="{{ driver|e }}">
     <td>{{ driver|e }}</td> <td><strong>{{ total_hr }}</strong></td> <td class="text-muted">{{diff_prev}}</td> <td class="text-muted">{{diff_first}}</td>
     </tr>
       {% endfor %}
   </table>
   
 </div>
+<p class="text-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;<small>Use the short url below to share this Rally or simply copy the url from the browser address bar.</small></p>
+<input style="padding:3px; width:12em;" class="text-muted" type="text" value="{{shorturl}}" onClick="javascript:this.focus();this.select();">
     </div>
     
 <div class="col-lg-1">&nbsp;</div>
@@ -48,14 +49,14 @@
   {% for t in tracks %}
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading"><strong><a class="track-link" data-html="false" title="Go to trak page on MX" target="_blank" href="http://tm.mania-exchange.com/tracks/view/{{t.TrackID}}">{{ t.Name|e }} </a></strong>
+  <div class="panel-heading"><strong><a class="track-link" data-html="true" data-placement="bottom" title="<img alt='{{ t.Name|e }}' class='img' src='http://test.mania-exchange.com/tracks/screenshot/small/{{t.TrackID}}' style='width:100%; height:100%' />" target="_blank" href="http://tm.mania-exchange.com/tracks/view/{{t.TrackID}}">{{ t.Name|e }} </a></strong>
   <small><a target="_blank" style="float:right" href="http://tm.mania-exchange.com/upload/replays/select_files/{{t.TrackID}}">Submit Replay <span class="glyphicon glyphicon-circle-arrow-up"></span></a></small>
   </div>
 
 
   <table class="table">
 {% for r in t.Replays %}
-<tr>
+<tr id="{{ r.Username|e }}">
 	 <td style="width:50%">{{ r.Username|e }}</td> <td style="width:50%"><a href="http://tm.mania-exchange.com/replays/download/{{r.ReplayID}}">{{ r.Record }}</a></td>
     {% endfor %}
 </tr>
@@ -77,7 +78,7 @@
 <script>
         $( document ).ready(function() {
             // Do stuff on page load
-			$('.track-link').tooltip()
+			$('#info, .track-link').tooltip()
         });
     </script> 
 <script type="text/javascript">

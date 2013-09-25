@@ -39,8 +39,17 @@ class RallyPage(webapp2.RequestHandler):
         qs = self.request.query_string
         track_name = self.request.get('trackname')
         track_author = self.request.get('author')
+        long_url = json.dumps({'longUrl': self.request.url})
         
-        # title = self.request.get('trackname') or self.request.get('author')+'\'s Rally' or 'Rally Incognito'
+        url_api = 'https://www.googleapis.com/urlshortener/v1/url?key=AIzaSyA3y36r-t9ZPkQU9IOu3k1k6tU7RthHZFg'
+        hd = {'Content-Type': 'application/json', }
+        shorturl = ''
+        response = urlfetch.fetch(url_api, headers= hd, payload=long_url, method='POST')
+        
+        
+        if response.status_code == 200:
+            resp_body = json.loads(response.content)
+            shorturl = resp_body['id']
         
         if IsNotNull(track_name) and IsNotNull(track_author):
             title = track_name + ' by ' + track_author
@@ -77,8 +86,8 @@ class RallyPage(webapp2.RequestHandler):
             totals = []
             for usr, recs in records.iteritems():
                 
-                # if len(tracks)==len(recs):
-                if len(recs)> 0:
+                if len(tracks)==len(recs):
+                # if len(recs)> 0:
                     
                     total_ms = sum(recs)
                     total_hr = str(datetime.timedelta(milliseconds = total_ms)).encode('UTF-8')[2:-3]
@@ -101,6 +110,7 @@ class RallyPage(webapp2.RequestHandler):
             'tracks': tracks,
             'records': records,
             'totals': totals,
+            'shorturl': shorturl,
         }
 
         template = JINJA_ENVIRONMENT.get_template('rally.html')

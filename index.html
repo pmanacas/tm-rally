@@ -7,10 +7,9 @@
 <meta name="author" content="pfm">
 <title>TM Rally</title>
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-<div class="jumbotron">
+<div class="jumbotron" style="padding-top:20px; padding-bottom:20px;">
   <div class="container"> <a class="" href="/"><img src="/img/tmrally.png" alt="TM Rally"></a><br>
     <h1 style="margin:20px 0;">Welcome to TM Rally :-)</h1>
     <p>On this page you can create multi-track Rally style leaderboards for TrackMania² tracks from Mania Exchange.</p>
@@ -18,7 +17,7 @@
     <p>See instructions below.</p>
     <p>&nbsp;</p>
     <form action="/" method="post" >
-      <input type="text" id="url" name="query" style="width:700px; padding-left:10px;" placeholder="Paste Mania Exchange track search url">
+      <input type="text" id="paste-box" name="query" style="width:700px; padding-left:10px;" placeholder="Paste Mania Exchange track search url">
       <input type="submit" name="submit" value="Create Rally &raquo;" class="btn btn-primary btn-lg">
     </form>
   </div>
@@ -34,14 +33,14 @@
       <p>Head over to the Mania Exchange site and <strong><a href="http://tm.mania-exchange.com/tracksearch">do a track search</a></strong> to find the group of tracks you want to include in your Rally.</p>
       <p>Make sure you sort them in the order you will want them in the Rally leaderboard.</p>
       <p>&nbsp;</p>
-      <p><a target="_blank" class="btn btn-default" href="http://tm.mania-exchange.com/tracksearch?mode=0&vm=0&trackname=Rally%20of%20Molvania&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0">Search example &raquo;</a></p>
+      <p><a target="_blank" class="btn btn-default" href="http://tm.mania-exchange.com/tracksearch?mode=0&vm=0&trackname=ERC%20Poland&author=wraith&mtype=All&tpack=All&priord=3&limit=20&environments=1%2C2%2C3&unreleased=0">Search example &raquo;</a></p>
     </div>
     <div class="col-lg-6">
       <h2><strong>Step 2:</strong> Copy & Paste!</h2>
       <p>When you are happy with your track search results simply <strong>copy the url from the browser address bar on Mania Exchange</strong> and paste in the text box above.</p>
       <p>Ah... and click the <em>"Create Rally"</em> button :P</p>
       <p>&nbsp;</p>
-      <p><a target="_blank" class="btn btn-default" href="/rally/?mode=0&vm=0&trackname=Rally%20of%20Molvania&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0">Rally example &raquo;</a></p>
+      <p><a target="_blank" class="btn btn-default" href="/rally/?trackname=ERC%20Poland&author=wraith&priord=3">Rally example &raquo;</a></p>
     </div>
   </div>
   <hr>
@@ -55,7 +54,7 @@
 <script>
         $( document ).ready(function() {
             // Do stuff on page load
-
+			$("#paste-box").focus();
         });
     </script> 
 <script type="text/javascript">
