@@ -1,48 +1,86 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="favicon.ico">
-    <title>TM Rally</title>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
-    <link rel="stylesheet" href="/css/styles.css" />
-  </head>
-  <body>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="pfm">
+<title>{{title|e}}</title>
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+<div class="jumbotron" style="padding-bottom:20px;">
+  <div class="container"> <a class="" href="/"><img src="/img/tmrally.png" alt="TM Rally"></a><br>
+    <h1 style="margin:20px 0;"><em>{{title|e}}</em></h1>
+  </div>
+</div>
+<!-- /container -->
 
-  <h1>Total Rally times</h1>
-    <ul>
-        {% for driver, total_ms, total_hr in totals %}
-            <li>{{ driver }} ({{ total_hr }})</li>
-        {% endfor %}
-    </ul>
+<div class="container"> 
+  
+  <!-- Example row of columns -->
+  <div class="row">
+    <div class="col-lg-6">
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong>Rally Standings</strong></div>
+
+
+  <table class="table">
+	<th class="text-muted">Driver</th><th class="text-muted">Total time</th><th class="text-muted">Diff previous</th><th class="text-muted">Diff first</th>
+
+      {% for driver, total_ms, total_hr, diff_prev, diff_first in totals %}
       
-  <h1>Stage times</h1>
-    <ul>
-        {% for t in tracks %}
-            <li>{{ t.Name }}</li>
+	<tr>
+    <td>{{ driver|e }}</td> <td><strong>{{ total_hr }}</strong></td> <td class="text-muted">{{diff_prev}}</td> <td class="text-muted">{{diff_first}}</td>
+    </tr>
+      {% endfor %}
+  </table>
+  
+</div>
+    </div>
+    
+<div class="col-lg-1">&nbsp;</div>
 
-            <ul>
-                {% for r in t.Replays %}
-                    <li>{{ r.Record }} ({{ r.Username }})</li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-    </ul>
+    <div class="col-lg-4">
+
+  {% for t in tracks %}
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><strong><a class="track-link" data-html="false" title="Go to trak page on MX" target="_blank" href="http://tm.mania-exchange.com/tracks/view/{{t.TrackID}}">{{ t.Name|e }} </a></strong>
+  <small><a target="_blank" style="float:right" href="http://tm.mania-exchange.com/upload/replays/select_files/{{t.TrackID}}">Submit Replay <span class="glyphicon glyphicon-circle-arrow-up"></span></a></small>
+  </div>
 
 
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script>
+  <table class="table">
+{% for r in t.Replays %}
+<tr>
+	 <td style="width:50%">{{ r.Username|e }}</td> <td style="width:50%"><a href="http://tm.mania-exchange.com/replays/download/{{r.ReplayID}}">{{ r.Record }}</a></td>
+    {% endfor %}
+</tr>
+  </table>
+  
+</div>
+  {% endfor %}
+
+    </div>
+  </div>
+  <hr>
+  <p><a href="http://tm.mania-exchange.com/messaging/compose/9512"><strong>Send feedback to pfm</strong></a></p>
+  <p>&nbsp;</p>
+</div>
+<!-- /container --> 
+
+<script src="http://code.jquery.com/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
+<script>
         $( document ).ready(function() {
             // Do stuff on page load
-
+			$('.track-link').tooltip()
         });
-    </script>
-    <script type="text/javascript">
+    </script> 
+<script type="text/javascript">
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-3803456-10']);
@@ -55,5 +93,5 @@
   })();
 
 </script>
-  </body>
+</body>
 </html>

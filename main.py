@@ -13,6 +13,9 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'])
 
+def IsNotNull(value):
+    return value is not None and len(value) > 0    
+    
 class LandingPage(webapp2.RequestHandler):
 
     def get(self):
@@ -23,12 +26,10 @@ class LandingPage(webapp2.RequestHandler):
     
     def post(self):
         url = self.request.get('query')
-        logging.info(url)
         url = urlparse.urlsplit(url).query
-        logging.info(url)
         url = '/rally/?' + url
         self.redirect(url)
-        pass
+
         
         
 class RallyPage(webapp2.RequestHandler):
@@ -36,7 +37,20 @@ class RallyPage(webapp2.RequestHandler):
     def get(self):
 
         qs = self.request.query_string
-        title = self.request.get('trackname') or self.request.get('author')+'\'s Rally' or 'Rally Incognito'
+        track_name = self.request.get('trackname')
+        track_author = self.request.get('author')
+        
+        # title = self.request.get('trackname') or self.request.get('author')+'\'s Rally' or 'Rally Incognito'
+        
+        if IsNotNull(track_name) and IsNotNull(track_author):
+            title = track_name + ' by ' + track_author
+        elif IsNotNull(track_author):
+             title = track_author + '\'s Rally'
+        elif IsNotNull(track_name):
+             title = track_name     
+        else:
+            title = 'ERROR: Please include Track Name AND / OR Author in your search'
+            
         
         tracks_url = "http://tm.mania-exchange.com/tracksearch?api=on&" + qs
         response = urlfetch.fetch(tracks_url)
@@ -51,7 +65,7 @@ class RallyPage(webapp2.RequestHandler):
                     replays = json.loads(response.content)
                     for idex, replay in enumerate(replays):
                         time = str(datetime.timedelta(milliseconds = replay['ReplayTime']))
-                        time = time.encode('UTF-8')[:-3]
+                        time = time.encode('UTF-8')[2:-3]
                         replays[idex][u'Record'] = time
                         
                         usr = replay['Username']
@@ -63,14 +77,24 @@ class RallyPage(webapp2.RequestHandler):
             totals = []
             for usr, recs in records.iteritems():
                 
-                if len(tracks)==len(recs):
-                # if len(recs)> 2:
+                # if len(tracks)==len(recs):
+                if len(recs)> 0:
                     
                     total_ms = sum(recs)
-                    total_hr = str(datetime.timedelta(milliseconds = total_ms)).encode('UTF-8')[:-3]
-                    totals.append((usr, total_ms, total_hr))
+                    total_hr = str(datetime.timedelta(milliseconds = total_ms)).encode('UTF-8')[2:-3]
+                    totals.append([usr, total_ms, total_hr])
                     
-            totals.sort(key=lambda tup: tup[1])
+            totals.sort(key=lambda i: i[1])
+            for i, tot in enumerate(totals):
+                if i == 0:
+                    tot.append('+00')
+                    tot.append('+00')
+                else:
+                    diff_prev = '+' + str(datetime.timedelta(milliseconds = tot[1] - totals[i-1][1])).encode('UTF-8')[2:-3]
+                    tot.append(diff_prev)
+                    diff_first = '+' + str(datetime.timedelta(milliseconds = tot[1] - totals[0][1])).encode('UTF-8')[2:-3]
+                    tot.append(diff_first)
+                    
             
         template_values = {
             'title': title,
