@@ -54,6 +54,9 @@
   <strong><a class="track-link" data-html="true" data-placement="bottom" title="<p>Visit track page</p><img alt='{{ t.Name|e }}' class='img' src='http://test.mania-exchange.com/tracks/screenshot/small/{{t.TrackID}}' style='width:100%; height:100%' />" target="_blank" href="http://tm.mania-exchange.com/tracks/view/{{t.TrackID}}">{{ t.Name|e }}</a></strong>
   &nbsp;
   <a id="info" title="Download track" href="http://tm.mania-exchange.com/tracks/download/{{t.TrackID}}" ><span class="glyphicon glyphicon-download-alt text-muted"></span></a>
+  &nbsp;
+  <a id="info" title="Install & Play track" href="maniaplanet:///:mx:download?id={{t.TrackID}}" ><span class="glyphicon glyphicon-play-circle text-muted" style="font-size:1.1em;"></span></a>
+  
   
   <small><a target="_blank" style="float:right" href="http://tm.mania-exchange.com/upload/replays/select_files/{{t.TrackID}}">Submit Replay <span class="glyphicon glyphicon-circle-arrow-up text-muted"></span></a></small>
   </div>
@@ -62,7 +65,13 @@
   <table class="table">
 {% for r in t.Replays %}
 <tr id="{{ r.Username|e }}">
-	 <td style="width:50%; padding-left:15px;">{{ r.Username|e }}</td> <td style="width:50%"><a id="info" title="Downoad Replay" href="http://tm.mania-exchange.com/replays/download/{{r.ReplayID}}">{{ r.Record }}</a></td>
+	 <td style="width:50%; padding-left:15px;">{{ r.Username|e }}</td> <td style="width:50%">
+     
+     <a id="info" title="Downoad Replay" href="http://tm.mania-exchange.com/replays/download/{{r.ReplayID}}">{{ r.Record }}</a>
+     &nbsp;
+     <a id="info" title="Install & View Replay" href="maniaplanet:///:mx:replay?id={{t.TrackID}}" ><span class="glyphicon glyphicon-eye-open text-muted" style="font-size:1.1em;"></span></a>
+     
+     </td>
     {% endfor %}
 </tr>
   </table>

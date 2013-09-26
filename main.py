@@ -108,7 +108,6 @@ class RallyPage(webapp2.RequestHandler):
         template_values = {
             'title': title,
             'tracks': tracks,
-            'records': records,
             'totals': totals,
             'shorturl': shorturl,
         }
