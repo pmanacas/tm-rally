@@ -6,18 +6,22 @@
 <meta name="description" content="Create rally leaderboards for TrackMania²">
 <meta name="author" content="pfm">
 <title>TM Rally</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<style>
+.list-group-item {
+    padding-bottom:30px;
+    }
+</style>
 </head>
 <body>
 <div class="jumbotron" style="padding-top:20px; padding-bottom:20px;">
   <div class="container"> <a class="" href="/"><img src="/img/tmrally.png" alt="TM Rally"></a><br>
     <h1 style="margin:20px 0;">Welcome to TM Rally :-)</h1>
-    <p>On this page you can create multi-track Rally style leaderboards for TrackMania² tracks from Mania Exchange.</p>
+    <p>On this page you can create multi-track rally style leaderboards for <a href="https://www.maniaplanet.com/trackmania/" target="_blank">TrackMania²</a> tracks from <a href="https://tm.mania-exchange.com/" target="_blank">Mania Exchange</a>.</p>
     <p>This site will simply add up all the record times for a group of tracks you select and display them in a friendly format.</p>
-    <p>See instructions below.</p>
-    <p>&nbsp;</p>
+
     <form action="/" method="post" >
-      <input type="text" id="paste-box" name="query" style="width:700px; padding-left:10px;" placeholder="Paste Mania Exchange track search url">
+      <input type="text" id="paste-box" name="query" style="width:700px; padding-left:10px; margin-top:10px;" placeholder="Paste Mania Exchange track search url">
       <input type="submit" name="submit" value="Create Rally &raquo;" class="btn btn-primary btn-lg">
     </form>
   </div>
@@ -28,34 +32,103 @@
   
   <!-- Example row of columns -->
   <div class="row">
-    <div class="col-lg-6">
-      <h2><strong>Step 1:</strong> Track Search</h2>
-      <p>Head over to the Mania Exchange site and <strong><a href="http://tm.mania-exchange.com/tracksearch">do a track search</a></strong> to find the group of tracks you want to include in your Rally.</p>
+    <div class="col-lg-5">
+      <h3><strong>Step 1</strong> - Track Search</h3>
+      <p>Head over to the Mania Exchange site and <strong><a href="https://tm.mania-exchange.com/tracksearch2">do a track search</a></strong> to find the group of tracks you want to include in your Rally.</p>
       <p>Make sure you sort them in the order you will want them in the Rally leaderboard.</p>
-      <p>&nbsp;</p>
-      <p><a target="_blank" class="btn btn-default" href="http://tm.mania-exchange.com/tracksearch?mode=0&vm=0&trackname=ERC%20Poland&author=wraith&mtype=All&tpack=All&priord=3&limit=20&environments=1%2C2%2C3&unreleased=0">Search example &raquo;</a></p>
-    </div>
-    <div class="col-lg-6">
-      <h2><strong>Step 2:</strong> Copy & Paste!</h2>
+      <p><a target="_blank" class="btn btn-default" href="https://tm.mania-exchange.com/tracksearch2?mode=0&vm=0&trackname=ERC%20Poland&author=wraith&mtype=All&tpack=All&priord=3&limit=20&environments=1%2C2%2C3&unreleased=0">Search example &raquo;</a></p>
+       <h3><strong>Step 2</strong> - Copy & Paste!</h3>
       <p>When you are happy with your track search results simply <strong>copy the url from the browser address bar on Mania Exchange</strong> and paste in the text box above.</p>
       <p>Ah... and click the <em>"Create Rally"</em> button :P</p>
-      <p>&nbsp;</p>
       <p><a target="_blank" class="btn btn-default" href="/rally/?trackname=ERC%20Poland&author=wraith&priord=3">Rally example &raquo;</a></p>
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+      <h4>Advanced mode (arbitrary  MX track IDs):</h4>
+      <p>You can also create a rally by specifying a set of MX track IDs.</p>
+
+      <p>Simply use this url format:</p>
+      <input style="padding:3px; width:40em; margin-bottom:10px;" class="text-muted" type="text" value="{{host}}/rally/?trackname=Rally&author=Peter&ids=58248,58211" onClick="javascript:this.focus();this.select();">
+      <p>You can provide up to 50 comma separated track IDs in the "ids" parameter.</p>
+      <p class="text-muted">The trackname and author parameters will only be used for the title of the rally page in the format: <strong>{trackname} by {author}</strong><br>(You must specify at least one of them)</p>
+      <p class="text-muted"></p>
     </div>
+    
+    <div class="col-lg-1">&nbsp;</div>
+    <div class="col-lg-6">
+<h3><strong>Featured Rallies</strong> <small><a target="_blank" title="Click this icon to suggest a featured rally." id="info" href="https://tm.mania-exchange.com/messaging/compose/9512"><span class="glyphicon glyphicon-info-sign" style=" color:#ccc"></span></a></small></h3>
+
+  <div class="list-group">
+
+  <a href="/rally/?trackname=Valley%20Endurance%20Tour&ids=58248,58211,48863,59117,60544" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">Valley Endurance Tour</h4>
+    <p class="list-group-item-text">A hand picked selection of Valley endurance tracks. <br>Do you have what it takes to get a clean run in all of them?
+    <br>[5 Stages]</p>
+  </a>
+  
+  <a href="/rally/?mode=0&vm=0&trackname=Rounds&author=erikfzr&mtype=All&tpack=All&priord=2&limit=20&environments=1%2C2%2C3&unreleased=0" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">Rounds by erikfzr</h4>
+    <p class="list-group-item-text">A collection of excellent rounds tracks from erikfzr. <br>Hunt them all!
+    <br>[14 Stages]</p>
+  </a>
+  
+  <a href="/rally/?mode=0&vm=0&trackname=Rally%20of%20Dalmatia&author=Wombat&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">Rally of Dalmatia by Wombat</h4>
+    <p class="list-group-item-text">Super flowy rally mixing dirt with tarmac and some amazingly creative jumps.
+    <br>[3 Stages]</p>
+  </a>
+  
+    <a href="/rally/?mode=0&vm=0&trackname=Batz%20Rally%20Sprint&author=Wombat&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">Batz Rally Sprint by Wombat</h4>
+    <p class="list-group-item-text">A supertight short rally composed of 3 stages roughly 30secs each.<br>Includes some crazy jumps.
+    <br>[3 Stages]</p>
+  </a>
+  
+      <a href="/rally/?mode=0&vm=0&trackname=Rally%20Tour%20on%20MX&author=voodoo&mtype=All&tpack=All&priord=3&limit=20&environments=3&unreleased=0" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">Rally Tour on MX by voodoo</h4>
+    <p class="list-group-item-text">A hard core, all dirt, tough rally with long stages.
+    <br>[2 Stages]</p>
+  </a>
+  
+  <a href="/rally/?priord=3&trackname=Rally%20of%20Molvania&author=Wombat" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">Rally of Molvania by Wombat</h4>
+    <p class="list-group-item-text">A reallistic rally composed of lots of narrow tarmac and dirt / forest roads.<br>All six stages have full pace note signs and great MT work.
+    <br>[6 Stages]</p>
+  </a>
+
+    <a href="/rally/?trackname=ERC%20Germany&author=wraith&mtype=All&tpack=All&priord=3&limit=20&environments=3" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">ERC Germany by wraith</h4>
+    <p class="list-group-item-text">A brilliant technicall and tight rally with some genius tarmac stages. There's also some nice dirt. Stage number 4 is driven twice (one fowd one backwards).
+    <br>[5 Stages]</p>
+  </a>
+  
+    <a href="/rally/?trackname=ERC%20Poland&author=wraith&priord=3" class="list-group-item">
+    <h4 class="list-group-item-heading" style="color:#428bca; font-weight:bold;">ERC Poland by wraith</h4>
+    <p class="list-group-item-text">A 3 stage rally by wraith none other than the author of the pace note signs.<br>There are 2 pure rally stages with full pace notes and lots of dirt, plus one brilliant technical Super Special full of tight tarmac corners and some realistic jumps.
+    <br>[3 Stages]</p>
+  </a>
+  
+  
+</div>
+
   </div>
+
+  
+
+    <div class="clearfix"></div>
   <hr>
-  <p>Site built by <a target="_blank" href="http://tm.mania-exchange.com/user/profile/9512">pfm</a>, logo design by <a target="_blank" href="http://tm.mania-exchange.com/user/profile/15">eyebo</a>
-  <p><a href="http://tm.mania-exchange.com/messaging/compose/9512">Send feedback</a></p>
+  <p>Site built by <a target="_blank" href="https://tm.mania-exchange.com/user/profile/9512">pfm</a>, logo design by <a target="_blank" href="https://tm.mania-exchange.com/user/profile/15">eyebo</a>
+  <p><a href="https://tm.mania-exchange.com/messaging/compose/9512">Send feedback</a></p>
   <p>&nbsp;</p>
 </div>
 <!-- /container --> 
 
-<script src="http://code.jquery.com/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
+<script src="https://code.jquery.com/jquery.js"></script> 
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
 <script>
         $( document ).ready(function() {
             // Do stuff on page load
 			$("#paste-box").focus();
+            $('#info, .track-link, .driver').tooltip();
         });
     </script> 
 <script type="text/javascript">

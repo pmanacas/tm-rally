@@ -6,7 +6,18 @@
 <meta name="description" content="Create rally leaderboards for TrackMania²">
 <meta name="author" content="pfm">
 <title>{{title|e}}</title>
-<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<style>
+    .highlight {
+        background-color: #FFFA80;
+    }
+    .driver {
+    cursor: pointer;
+    }
+    .driver:hover {
+    color: #8A8BCA;
+    }
+</style>
 </head>
 <body>
 <div class="jumbotron" style="padding-top:20px; padding-bottom:20px;">
@@ -27,49 +38,56 @@
 
 
   <table class="table">
-	<th class="text-muted" style="padding-left:15px;">Driver</th><th class="text-muted">Total time</th><th class="text-muted">Diff previous</th><th class="text-muted">Diff first</th>
+	<th class="text-muted" style="padding-left:15px;">#</th><th class="text-muted">Driver</th><th class="text-muted">Total time</th><th class="text-muted">Diff previous</th><th class="text-muted">Diff first</th>
 
-      {% for driver, total_ms, total_hr, diff_prev, diff_first in totals %}
+      {% for driver, total_ms, total_hr, usr_clean , diff_prev, diff_first in totals %}
       
-	<tr id="{{ driver|e }}">
-    <td style="padding-left:15px;">{{ driver|e }}</td> <td><strong>{{ total_hr }}</strong></td> <td class="text-muted">{{diff_prev}}</td> <td class="text-muted">{{diff_first}}</td>
+	<tr class="{{usr_clean|e }}">
+    
+    <td id="" class="text-muted" style="padding-left:15px;">{{loop.index}}</td>
+    <td id="{{usr_clean|e }}" class="driver" title="Click to highlight everywhere on page">{{ driver|e }}</td> 
+    <td><strong>{{ total_hr }}</strong></td>
+    <td class="text-muted">{{diff_prev}}</td> 
+    <td class="text-muted">{{diff_first}}</td>
+    
     </tr>
       {% endfor %}
   </table>
   
 </div>
-<p class="text-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;<small>Use the short url below to share this Rally or simply copy the url from the browser address bar.</small></p>
-<input style="padding:3px; width:12em;" class="text-muted" type="text" value="{{shorturl}}" onClick="javascript:this.focus();this.select();">
+<p class="text-info"><span class="glyphicon glyphicon-info-sign"></span>&nbsp;<small>Use the url below to share this Rally.</small></p>
+<input style="padding:3px; width:100%;" class="text-muted" type="text" value="{{shorturl}}" onClick="javascript:this.focus();this.select();">
     </div>
     
 <div class="col-lg-1">&nbsp;</div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-5">
 
   {% for t in tracks %}
 <div class="panel panel-default">
   <!-- Default panel contents -->
   <div class="panel-heading">
   
-  <strong><a class="track-link" data-html="true" data-placement="bottom" title="<p>Visit track page</p><img alt='{{ t.Name|e }}' class='img' src='http://test.mania-exchange.com/tracks/screenshot/small/{{t.TrackID}}' style='width:100%; height:100%' />" target="_blank" href="http://tm.mania-exchange.com/tracks/view/{{t.TrackID}}">{{ t.Name|e }}</a></strong>
+  <strong><a class="track-link" data-html="true" data-placement="top" title="<p>Go to track page on ManiaExchange</p>" target="_blank" href="https://tm.mania-exchange.com/tracks/view/{{t.TrackID}}">{{ t.Name|e }}</a></strong>
   &nbsp;
-  <a id="info" title="Download track" href="http://tm.mania-exchange.com/tracks/download/{{t.TrackID}}" ><span class="glyphicon glyphicon-download-alt text-muted"></span></a>
+  <a id="info" title="Download track" href="https://tm.mania-exchange.com/tracks/download/{{t.TrackID}}" ><span class="glyphicon glyphicon-download-alt text-muted"></span></a>
   &nbsp;
   <a id="info" title="Install & Play track" href="maniaplanet:///:mx:download?id={{t.TrackID}}" ><span class="glyphicon glyphicon-play-circle text-muted" style="font-size:1.1em;"></span></a>
-  
-  
-  <small><a target="_blank" style="float:right" href="http://tm.mania-exchange.com/upload/replays/select_files/{{t.TrackID}}">Submit Replay <span class="glyphicon glyphicon-circle-arrow-up text-muted"></span></a></small>
+  <a id="info" target="_blank" data-html="true" data-placement="top" title="Submit Replay" style="float:right;" class="text-muted" href="https://tm.mania-exchange.com/upload/replays/select_files/{{t.TrackID}}">Submit Replay <span class="glyphicon glyphicon-circle-arrow-up text-muted"></span></a>
+  <div class="clearfix"></div>
   </div>
 
-
+	<img alt='{{ t.Name|e }}' class='img' src='https://tm.mania-exchange.com/tracks/screenshot/normal/{{t.TrackID}}' style='width:100%; height:100%' />
   <table class="table">
 {% for r in t.Replays %}
-<tr id="{{ r.Username|e }}">
-	 <td style="width:50%; padding-left:15px;">{{ r.Username|e }}</td> <td style="width:50%">
+<tr class="{{r.CleanName|e}}">
+     <td id="" class="text-muted" style="padding-left:15px;">{{loop.index}}</td>
+	 <td id="{{r.CleanName|e}}" class="driver" style="width:50%;" title="Click to highlight everywhere on page">{{ r.Username|e }}</td>
+     <td style="width:50%">
      
-     <a id="info" title="Downoad Replay" href="http://tm.mania-exchange.com/replays/download/{{r.ReplayID}}">{{ r.Record }}</a>
+     <a id="info" title="Download Replay" href="https://tm.mania-exchange.com/replays/download/{{r.ReplayID}}">{{ r.Record }}</a>
      &nbsp;
-     <a id="info" title="Install & View Replay" href="maniaplanet:///:mx:replay?id={{t.TrackID}}" ><span class="glyphicon glyphicon-eye-open text-muted" style="font-size:1.1em;"></span></a>
+     <a id="info" title="Install & View Replay" href="maniaplanet:///:mx:replay?id={{r.ReplayID}}" ><span class="glyphicon glyphicon-eye-open text-muted" style="font-size:1.1em;"></span></a>
      
      </td>
     {% endfor %}
@@ -82,19 +100,23 @@
     </div>
   </div>
   <hr>
-  <p>Site built by <a target="_blank" href="http://tm.mania-exchange.com/user/profile/9512">pfm</a>, logo design by <a target="_blank" href="http://tm.mania-exchange.com/user/profile/15">eyebo</a>
-  <p><a href="http://tm.mania-exchange.com/messaging/compose/9512">Send feedback</a></p>
+  <p>Site built by <a target="_blank" href="https://tm.mania-exchange.com/user/profile/9512">pfm</a>, logo design by <a target="_blank" href="https://tm.mania-exchange.com/user/profile/15">eyebo</a>
+  <p><a href="https://tm.mania-exchange.com/messaging/compose/9512">Send feedback</a></p>
   <p>&nbsp;</p>
 </div>
 <!-- /container --> 
 
-<script src="http://code.jquery.com/jquery.js"></script> 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
+<script src="https://code.jquery.com/jquery.js"></script> 
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script> 
 <script>
         $( document ).ready(function() {
             // Do stuff on page load
-			$('#info, .track-link').tooltip()
-        });
+			$('#info, .track-link').tooltip();
+            
+            $( '.driver' ).click(function() {
+                    $('.'+$(this).attr('id')).toggleClass( 'highlight' );
+                });
+            });
     </script> 
 <script type="text/javascript">
 
